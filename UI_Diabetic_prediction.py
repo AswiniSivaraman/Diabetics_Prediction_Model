@@ -64,18 +64,17 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
 # Reset functionality
 if "reset" not in st.session_state:
     st.session_state.reset = False
 
 # Reset values logic
 def reset_values():
-    st.session_state.gender = "Female"
+    st.session_state.gender = "---- Select Gender ----"
     st.session_state.age = 0
-    st.session_state.hypertension = "No"
-    st.session_state.heart_disease = "No"
-    st.session_state.smoking_history = "Never Smoked"
+    st.session_state.hypertension = "---- Select Hypertension Status ----"
+    st.session_state.heart_disease = "---- Select Heart Disease Status ----"
+    st.session_state.smoking_history = "---- Select Smoking History ----"
     st.session_state.bmi = 0.0
     st.session_state.hba1c = 0.0
     st.session_state.blood_glucose = 0
@@ -93,16 +92,16 @@ with st.form("diabetes_form"):
     
     # Widgets in the first column
     with col1:
-        gender = st.selectbox("Gender", ["Female", "Male"], key="gender")
+        gender = st.selectbox("Gender", ["---- Select Gender ----", "Female", "Male"], key="gender")
         age = st.number_input("Age", min_value=0, max_value=120, step=1, key="age")
-        hypertension = st.selectbox("Do you have Hypertension?", ["No", "Yes"], key="hypertension")
-        heart_disease = st.selectbox("Do you have Heart Disease?", ["No", "Yes"], key="heart_disease")
+        hypertension = st.selectbox("Do you have Hypertension?", ["---- Select Hypertension Status ----", "No", "Yes"], key="hypertension")
+        heart_disease = st.selectbox("Do you have Heart Disease?", ["---- Select Heart Disease Status ----", "No", "Yes"], key="heart_disease")
     
     # Widgets in the second column
     with col2:
         smoking_history = st.selectbox(
             "Smoking History",
-            ["Never Smoked", "Former Smoker", "Current Smoker", "Occasional", "Unknown"],
+            ["---- Select Smoking History ----", "Never Smoked", "Former Smoker", "Current Smoker", "Occasional", "Unknown"],
             key="smoking_history"
         )
         bmi = st.number_input("Enter your BMI (e.g., 25.4)", format="%.1f", key="bmi")
@@ -122,60 +121,68 @@ if reset_button:
 
 # When the Predict button is pressed
 if predict_button:
-    # Encode inputs
-    gender_encoded = 0 if st.session_state.gender == "Female" else 1
-    hypertension_encoded = 0 if st.session_state.hypertension == "No" else 1
-    heart_disease_encoded = 0 if st.session_state.heart_disease == "No" else 1
-    smoking_history_encoded = {
-        "Never Smoked": 0,
-        "Former Smoker": 1,
-        "Current Smoker": 2,
-        "Occasional": 3,
-        "Unknown": 4,
-    }[st.session_state.smoking_history]
+    if (
+        gender == "---- Select Gender ----" or
+        hypertension == "---- Select Hypertension Status ----" or
+        heart_disease == "---- Select Heart Disease Status ----" or
+        smoking_history == "---- Select Smoking History ----"
+    ):
+        st.error("Please enter valid inputs for all fields.")
+    else:
+        # Encode inputs
+        gender_encoded = 0 if st.session_state.gender == "Female" else 1
+        hypertension_encoded = 0 if st.session_state.hypertension == "No" else 1
+        heart_disease_encoded = 0 if st.session_state.heart_disease == "No" else 1
+        smoking_history_encoded = {
+            "Never Smoked": 0,
+            "Former Smoker": 1,
+            "Current Smoker": 2,
+            "Occasional": 3,
+            "Unknown": 4,
+        }[st.session_state.smoking_history]
 
-    # Prepare the input for the model
-    input_data = [
-        [
-            gender_encoded,
-            st.session_state.age,
-            hypertension_encoded,
-            heart_disease_encoded,
-            smoking_history_encoded,
-            st.session_state.bmi,
-            st.session_state.hba1c,
-            st.session_state.blood_glucose,
+        # Prepare the input for the model
+        input_data = [
+            [
+                gender_encoded,
+                st.session_state.age,
+                hypertension_encoded,
+                heart_disease_encoded,
+                smoking_history_encoded,
+                st.session_state.bmi,
+                st.session_state.hba1c,
+                st.session_state.blood_glucose,
+            ]
         ]
-    ]
 
-    # Make the prediction
-    try:
-        prediction = model.predict(input_data)
-        probability = model.predict_proba(input_data)[0][1]  # Probability of diabetes
+        # Make the prediction
+        try:
+            prediction = model.predict(input_data)
+            probability = model.predict_proba(input_data)[0][1]  # Probability of diabetes
 
-        # Display results
-        if prediction[0] == 1:
-            st.markdown(
-                f"""
-                <div style="background-color: #FFD1D1; padding: 10px; border-radius: 5px; border: 1px solid #FF0000;">
-                    <h3 style="text-align: center; color: #FF0000;">High Risk of Diabetes</h3>
-                    <h4 style="text-align: center; color: #FF0000;">Kindly consult a doctor as soon as possible</h4>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            ) 
-        else:
-            st.markdown(
-                f"""
-                <div style="background-color: #DFF6DD; padding: 10px; border-radius: 5px; border: 1px solid #4CAF50;">
-                    <h3 style="text-align: center; color: #388E3C;">Low Risk of Diabetes</h3>
-                    <h4 style="text-align: center; color: #388E3C;">You are healthy</h4>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-    except Exception as e:
-        st.error(f"An error occurred: {e}")
+            # Display results
+            if prediction[0] == 1:
+                st.markdown(
+                    f"""
+                    <div style="background-color: #FFD1D1; padding: 10px; border-radius: 5px; border: 1px solid #FF0000;">
+                        <h3 style="text-align: center; color: #FF0000;">High Risk of Diabetes</h3>
+                        <h4 style="text-align: center; color: #FF0000;">Kindly consult a doctor as soon as possible</h4>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                ) 
+            else:
+                st.markdown(
+                    f"""
+                    <div style="background-color: #DFF6DD; padding: 10px; border-radius: 5px; border: 1px solid #4CAF50;">
+                        <h3 style="text-align: center; color: #388E3C;">Low Risk of Diabetes</h3>
+                        <h4 style="text-align: center; color: #388E3C;">You are healthy</h4>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+        except Exception as e:
+            st.error(f"An error occurred: {e}")
 
 # Footer
 st.sidebar.markdown(
