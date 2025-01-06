@@ -116,6 +116,9 @@ To set up and run the project, follow these steps:
 - Developing and deploying a machine learning model through Streamlit to create an interactive user interface.
 
 ## Streamlit UI
+
+Below is an illustration of the Streamlit user interface for this project:
+
 ![image](https://github.com/user-attachments/assets/c0746ab4-509d-4842-a4de-e9b4b8147c37)
 
 
