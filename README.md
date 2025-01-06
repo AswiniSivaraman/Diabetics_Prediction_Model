@@ -12,9 +12,9 @@ The **Diabetes Prediction Model** is a machine learning-based solution designed 
 5. [Data Cleaning and Preprocessing](#data-cleaning-and-preprocessing)
 6. [Model Score](#model-score)
 7. [Installation](#installation)
-8. [Future Updates](#future-updates)
-9. [Learnings from the Project](#learnings-from-the-project)
-10. [Streamlit UI](#streamlit-ui)
+8. [Learnings from the Project](#learnings-from-the-project)
+9. [Streamlit UI](#streamlit-ui)
+10. [AWS Deployment](#aws-deployment)
 
 ---
 
@@ -115,14 +115,6 @@ To set up and run the project, follow these steps:
 
 ---
 
-## Future Updates
-
-- Perform hyperparameter tuning to optimize the model performance by finding the best parameters.
-- Enhance and refine the Streamlit UI for better user experience.
-- Deploy the user interface on AWS for broader accessibility.
-
----
-
 ## Learnings from the Project
 
 - Data preprocessing techniques, including data cleaning, handling duplicate values, and Exploratory Data Analysis (EDA), finding and handling outliers, feature engineering.
@@ -134,6 +126,24 @@ To set up and run the project, follow these steps:
 Below is an illustration of the Streamlit user interface for this project:
 
 ![image](https://github.com/user-attachments/assets/c0746ab4-509d-4842-a4de-e9b4b8147c37)
+
+---
+
+## AWS Deployment
+- Deployed the user interface on AWS 
+
+![image](https://github.com/user-attachments/assets/4315fcb1-460a-4596-9338-f9e60e788e76)
+
+![image](https://github.com/user-attachments/assets/5f1e6eba-e6d8-498b-9ae8-d0b1ab4d6d47)
+
+![image](https://github.com/user-attachments/assets/a31e0a90-a7f9-4acb-bd2b-31c0ab16ddde)
+
+![image](https://github.com/user-attachments/assets/8189a97e-528b-46ba-a0be-90edd31f203c)
+
+
+
+
+
 
 
 
