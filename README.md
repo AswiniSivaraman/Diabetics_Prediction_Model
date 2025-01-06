@@ -10,10 +10,11 @@ The **Diabetes Prediction Model** is a machine learning-based solution designed 
 3. [Tools and Technologies](#tools-and-technologies)
 4. [Project Workflow](#project-workflow)
 5. [Data Cleaning and Preprocessing](#data-cleaning-and-preprocessing)
-6. [Installation](#installation)
-7. [Future Updates](#future-updates)
-8. [Learnings from the Project](#learnings-from-the-project)
-9. [Streamlit UI](#streamlit-ui)
+6. [Model Score](#model-score)
+7. [Installation](#installation)
+8. [Future Updates](#future-updates)
+9. [Learnings from the Project](#learnings-from-the-project)
+10. [Streamlit UI](#streamlit-ui)
 
 ---
 
@@ -86,6 +87,19 @@ The dataset includes health-related features such as BMI, blood glucose level, H
 
 5. **Target Variable**:  
    - Confirm that the `diabetes` column (1: Yes, 0: No) is the target variable for predictions.  
+
+---
+
+## Model Score
+**Best Model** - AdaBoost
+- **Score when training the model using default parameters:**
+  
+  ![image](https://github.com/user-attachments/assets/ae474b2f-5e55-4046-9e3f-111cf70ac419)
+
+- **Score after training the model with the best parameters from hyperparamter tuning:**
+  
+  ![image](https://github.com/user-attachments/assets/d4ea1c85-c3be-419a-a305-1663f703f463)
+
 
 ---
 
